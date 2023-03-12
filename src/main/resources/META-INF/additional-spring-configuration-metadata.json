@@ -1,0 +1,57 @@
+{"properties": [
+  {
+    "name": "camunda.connector.polling",
+    "type": "java.lang.String",
+    "description": "A description for 'camunda.connector.polling'"
+  },
+  {
+    "name": "camunda.connector.interval",
+    "type": "java.lang.String",
+    "description": "A description for 'camunda.connector.interval'"
+  },
+  {
+    "name": "camunda.connector.webhook.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'camunda.connector.webhook.enabled'"
+  },
+  {
+    "name": "camunda.operate.client.url",
+    "type": "java.lang.String",
+    "description": "A description for 'camunda.operate.client.url'"
+  },
+  {
+    "name": "camunda.operate.client.username",
+    "type": "java.lang.String",
+    "description": "A description for 'camunda.operate.client.username'"
+  },
+  {
+    "name": "camunda.operate.client.password",
+    "type": "java.lang.String",
+    "description": "A description for 'camunda.operate.client.password'"
+  },
+  {
+    "name": "vault.host",
+    "type": "java.lang.String",
+    "description": "A description for 'vault.host'"
+  },
+  {
+    "name": "vault.port",
+    "type": "java.lang.String",
+    "description": "A description for 'vault.port'"
+  },
+  {
+    "name": "vault.scheme",
+    "type": "java.lang.String",
+    "description": "A description for 'vault.scheme'"
+  },
+  {
+    "name": "vault.token",
+    "type": "java.lang.String",
+    "description": "A description for 'vault.token'"
+  },
+  {
+    "name": "vault.basepath",
+    "type": "java.lang.String",
+    "description": "A description for 'vault.basepath'"
+  }
+]}

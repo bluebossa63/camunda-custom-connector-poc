@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0kyohcd" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <bpmn:process id="swisscom-kafka-integration-test" name="swisscom-kafka-integration-test" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1vbvjb4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1vbvjb4" sourceRef="StartEvent_1" targetRef="Activity_0rqfyod" />
+    <bpmn:endEvent id="Event_18m1iyn">
+      <bpmn:incoming>Flow_14jpyms</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1enbts2" sourceRef="Activity_0rqfyod" targetRef="Activity_1ewab68" />
+    <bpmn:serviceTask id="Activity_0rqfyod" name="send message" zeebe:modelerTemplate="e6dca24e-7dc3-4522-b554-745563d4003d">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="com.swisscom.camunda.kafka.outbound.connector:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="SEND_MSG" target="requestType" />
+          <zeebe:input source="SEND_MSG" target="messageSpec.requestType" />
+          <zeebe:input source="=&#34;camunda8-poc-send&#34;" target="messageSpec.topic" />
+          <zeebe:input source="=&#34;secrets.camunda-poc/secret/integrationtest&#34;" target="messageSpec.message" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1vbvjb4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1enbts2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_14jpyms" sourceRef="Activity_1ewab68" targetRef="Event_18m1iyn" />
+    <bpmn:serviceTask id="Activity_1ewab68" name="receive message" zeebe:modelerTemplate="e6dca24e-7dc3-4522-b554-745563d4003d">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="com.swisscom.camunda.kafka.outbound.connector:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="WAIT_MSG" target="messageSpec.requestType" />
+          <zeebe:input source="camunda8-poc" target="messageSelector.topic" />
+          <zeebe:input source="camunda8" target="messageSelector.goupId" />
+          <zeebe:input source="Ting" target="messageSelector.searchExpression" />
+          <zeebe:input source="=&#34;camunda8&#34;" target="messageSpec.goupId" />
+          <zeebe:input source="=&#34;camunda8-poc-send&#34;" target="messageSpec.topic" />
+          <zeebe:input source="=&#34;(.*)Ding(.*)&#34;" target="messageSpec.searchExpression" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1enbts2</bpmn:incoming>
+      <bpmn:outgoing>Flow_14jpyms</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="swisscom-kafka-integration-test">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_18m1iyn_di" bpmnElement="Event_18m1iyn">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0135m2g_di" bpmnElement="Activity_0rqfyod">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_12lqkr4_di" bpmnElement="Activity_1ewab68">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1vbvjb4_di" bpmnElement="Flow_1vbvjb4">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1enbts2_di" bpmnElement="Flow_1enbts2">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14jpyms_di" bpmnElement="Flow_14jpyms">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
